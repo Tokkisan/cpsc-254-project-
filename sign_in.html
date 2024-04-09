@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Daily To-Do Reminder Sign-In</title>
-</head>
-<body>
-    <h1>Sign-In</h1>
-    <form action="/sign_in" method="post">
-            <label for="email">Email</label>
-            <br>
-            <input type="email" name= "email" id="email" placeholder="Enter your email" />
-            <br>
-            <br>
-            <label for="pswd">Password</label>
-            <br>
-            <input type="password" id="pswd" name="pswd" placeholder="Enter your password" />
-            <br>
-            <input type="submit" value="Sign-In" />
-            <br>
-            <br>
-            <a href="sign_up.html">New Here? Press this to sign-up!</a>
 
-    </form>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily To-Do Reminder Sign-In</title>
+  <link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body bgcolor="#d58dff">
+  <h1 class="center">Sign-In</h1>
+  <form action="/sign_in" method="post" class="center">
+    <div class = "test">
+    <div class="inline">
+      <a><label for="email">Email</label> </a>
+      <a><input type="email" name="email" id="email" placeholder="Enter your email" /> </a>
+      <br>
+      <a><label for="pswd">Password</label></a>
+      <a><input type="password" id="pswd" name="pswd" placeholder="Enter your password" /></a>
+      <br>
+      <input type="submit" value="Sign-In"/>
+      <br>
+      <br>
+      <a href="sign_up.html">New Here? Press this to sign-up!</a> 
+    </div>
+    </div>
+  </form>
 </body>
+
 </html>

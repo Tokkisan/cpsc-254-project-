@@ -1,0 +1,43 @@
+.center {
+  text-align: center;
+}
+
+h1.center {
+  padding-top: 80px;
+  color: white;
+  text-shadow: -1px 1px 0 #000,
+  1px 1px 0 #000,
+  1px -1px 0 #000,
+  -1px -1px 0 #000;
+}
+
+
+a {
+  text-align: left;
+  display: block;
+  padding:0;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.SignIN {
+  text-align: left;
+  font-size: 30px;
+}
+
+.test {
+  margin: 20px auto;
+  padding: 10px; 
+  background-color: #ffffff; 
+  border-color: black;
+  border-radius: 10px; 
+  border: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  max-width: 300px; 
+  text-align: left;
+}

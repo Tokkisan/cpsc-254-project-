@@ -8,4 +8,4 @@ function retrieveAccount(email) {
     // return the password from the table
 }
 
-export {addAccount, retrieveAccount}
+//export {addAccount, retrieveAccount}

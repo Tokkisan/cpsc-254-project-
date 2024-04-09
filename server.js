@@ -1,5 +1,5 @@
 // import the functions from database_functions to handle the database
-import {addAccount, retrieveAccount} from __dirname+"/database_functions.js"
+const database_functions = require('./database_functions.js');
 // This is the main server that the user will connect to and will redirect to the different files
 // use Node.js to run the database
 
@@ -30,17 +30,18 @@ toDo.post("/sign_in", function(request, response) {
 
     // search the database for the email and
     // pull the password from the database
-    let retrievedPswd = retrieveAccount(email);
+    let retrievedPswd = database_functions.retrieveAccount(email);
 
+    response.sendFile(__dirname + "/index.html");
     // make sure that the pulled and given passwords match
-    if (pswd === retrievedPswd) {
-        // if match...
-        response.sendFile(__dirname + "/index.html");
-    }
-    else {
-        // if passwords don't match...
-        // .. throw an error on the screen
-    }
+    // if (pswd === retrievedPswd) {
+    //     // if match...
+    //     //response.sendFile(__dirname + "/index.html");
+    // }
+    // else {
+    //     // if passwords don't match...
+    //     // .. throw an error on the screen
+    // }
 });
 
 // handle the data returned from the sign-up page
@@ -55,7 +56,7 @@ toDo.post("/sign_up", function(request, response) {
     // make sure that the two passwords match
     if (pswd === pswdV) {
         // store email and password in database
-        addAccount(email, pswd);
+        database_functions.addAccount(email, pswd);
     }
     else {
         // throw an error on the screen

@@ -3,6 +3,7 @@ const {addAccount} = require('./database_functions.js');
 const {retrieveAccount} = require('./database_functions.js');
 const {addToDo} = require('./database_functions.js');
 const {retrieveToDoReminders} = require('./database_functions.js');
+const {initialSetup} = require('./database_functions.js')
 // This is the main server that the user will connect to and will redirect to the different files
 // use Node.js to run the database
 
@@ -11,6 +12,8 @@ let express = require("express");
 // set up the open-source library function body parser for parsing the 
 // information submitted in the forms
 let formParser = require("body-parser");
+// for connecting to the MySQL database
+let mySQL = require("mysql");
 // start using express
 // toDo is short for "Daily To-Do Reminder"
 let toDo = express();
@@ -19,6 +22,25 @@ toDo.use(express.static(__dirname + "/public"));
 
 // activate the body parser library
 toDo.use(formParser.urlencoded({extended:true}));
+
+// current user -> global variable for time constrait -> usually a cookie
+let user = "";
+
+// create the connection to the database
+let dbConnection = mySQL.createConnection({
+    host: "localhost",
+    user: "dbadmin",
+    password: "temp"
+});
+
+// connect to the MySQL database and set up the initial database and login table
+dbConnection.connect(function(error) {
+    if (error) throw error;
+    console.log("Successfully connected to the database");
+    
+    // // create our database and table to keep track of user accounts
+    initialSetup(dbConnection);
+});
 
 // direct to the sign-in page when accessing localhost
 toDo.get("/", function(request, response) {
@@ -30,12 +52,13 @@ toDo.get("/", function(request, response) {
 toDo.post("/sign_in", function(request, response) {
     // get the email from the sign-in page
     let email = request.body.email;
+    user = request.body.email;
     // get the password from the sign-in page
     let pswd = request.body.pswd;
 
     // search the database for the email and
     // pull the password from the database
-    let retrievedPswd = retrieveAccount(email);
+    let retrievedPswd = retrieveAccount(email, dbConnection);
 
     // make sure that the pulled and given passwords match
     if (pswd === retrievedPswd) {
@@ -44,7 +67,7 @@ toDo.post("/sign_in", function(request, response) {
     }
     else {
         // if passwords don't match...
-        // .. throw an error on the screen
+        alert("Please enter the correct username and password");
     }
 });
 
@@ -52,6 +75,7 @@ toDo.post("/sign_in", function(request, response) {
 toDo.post("/sign_up", function(request, response) {
     // get the email from the sign-up page
     let email = request.body.email;
+    user = request.body.email;
     // get the password from the sign-up page
     let pswd = request.body.pswd;
     // get the second password for verification
@@ -60,12 +84,12 @@ toDo.post("/sign_up", function(request, response) {
     // make sure that the two passwords match
     if (pswd === pswdV) {
         // store email and password in database
-        addAccount(email, pswd);
+        addAccount(email, pswd, dbConnection);
         // go to the main page
         response.sendFile(__dirname + "/public/main_todo_page.html");
     }
     else {
-        // throw an error on the screen
+        alert("Please ensure that both passwords match");
     }
     // note: email input type automatically validates according to https://www.w3schools.com/tags/att_input_type_email.asp
 });
@@ -75,11 +99,11 @@ toDo.post("/addPost", function(request, response) {
     let reminder = request.body.todo_input;
 
     // put the string in the database
-    addToDo(reminder);
+    addToDo(user, reminder, dbConnection);
 })
 
 // listen on localhost: 3000
 toDo.listen(3000);
 
 // print a message to let the user know the server is working
-console.log("Server is working. Please go to localhost:3000");
+console.log("Server is listening. Please go to localhost:3000");

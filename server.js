@@ -38,8 +38,17 @@ dbConnection.connect(function(error) {
     if (error) throw error;
     console.log("Successfully connected to the database");
     
-    // // create our database and table to keep track of user accounts
-    initialSetup(dbConnection);
+    // see if the database and tables already exist
+    dbConnection.query("SHOW DATABASES LIKE 'toDoDb'", function(error, result) {
+        if (error) {
+            throw error;
+        } else if (result.is_empty()) { // if no such database exists
+            initialSetup(dbConnection); // create our database and tables to keep track of our users
+        }
+        else {
+            console.log("The database exists");
+        }
+    });
 });
 
 // direct to the sign-in page when accessing localhost

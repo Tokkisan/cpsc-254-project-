@@ -11,6 +11,13 @@ function initialSetup(dbConnection) {
         if (error) throw error;
         console.log("Successfully create accounts table!");
     });
+
+    // create the table to hold the todos
+    sqlCommand = "CREATE TABLE todos (email VARCHAR(255), reminder VARCHAR(255), PRIMARY KEY(email, reminder))";
+    dbConnection.query(sqlCommand, function(error, result) {
+        if (error) throw error;
+        console.log("Successfully created reminders table");
+    });
 }
 
 function addAccount(email, password, dbConnection) {
@@ -24,13 +31,6 @@ function addAccount(email, password, dbConnection) {
         dbConnection.query(sqlCommand, function(error, result) {
             if (error) throw error;
             console.log("Added new user to the accounts table")
-        });
-
-        // create a table for the user
-        sqlCommand = "CREATE TABLE " + email + " (id INT AUTO_INCREMENT PRIMARY KEY, reminder VARCHAR(255))";
-        dbConnection.query(sqlCommand, function(error, result) {
-            if (error) throw error;
-            console.log("Created user's table in database");
         });
     });
 }
@@ -68,7 +68,7 @@ function addToDo(user, toDoReminder, dbConnection) {
         console.log("Successfully connected to the database");
 
         // add the reminder to the database
-        let sqlCommand = "INSERT INTO " + user + " (reminder) VALUES ('" + toDoReminder + "')";
+        let sqlCommand = "INSERT INTO todos (email, reminder) VALUES ('" + user + "', '" + toDoReminder + "')";
         dbConnection.query(sqlCommand, function(error, result) {
             if (error) throw error;
             console.log("Added reminder to the database");

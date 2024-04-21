@@ -11,7 +11,7 @@ Follow these steps:
 To install Node.js in Linux follow these steps:
 1. Open the terminal on your machine
 2. Run the command "sudo apt install npm" (Note: do not include the quotation marks)
-2a. To verify that Node.js has been installed, run the command "npm -v" without the quotation marks. The version number installed will be displayed.
+3. To verify that Node.js has been installed, run the command "npm -v" without the quotation marks. The version number installed will be displayed.
 
 # Installing MySQL Workbench
 

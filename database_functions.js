@@ -24,7 +24,7 @@ function addAccount(email, password, dbConnection) {
     // connect to the database
     dbConnection.connect(function(error) {
         if (error) throw error;
-        console.log("Successfully connected to the database");
+        console.log("Successfully connected to the database for adding an account");
         
         // add the email and password to the accounts table
         let sqlCommand = "INSERT INTO accounts (email, password) VALUES ('" + email + ", '" + password + "')";
@@ -41,20 +41,28 @@ function retrieveAccount(email, dbConnection) {
     // connect to the database
     dbConnection.connect(function(error) {
         if (error) throw error;
-        console.log("Successfully connected to the database");
+        console.log("Successfully connected to the database for retrieving an account");
+
+        // retrieve the password stored in the database that matches the user's email
+        let sqlCommand = "SELECT password FROM accounts WHERE email = " + email;
+        dbConnection.query(sqlCommand, function(error, result, tableInfo) {
+            if (error) throw error;
+            retrievedPassword = result;
+            console.log("Successfully retrieved the password");
+        });
         
         // retrieve all emails and passwords to the accounts table
-        let sqlCommand = "SELECT email, password FROM accounts";
-        dbConnection.query(sqlCommand, function(error, tableRows, tableInfo) {
-            if (error) throw error;
+        // let sqlCommand = "SELECT email, password FROM accounts";
+        // dbConnection.query(sqlCommand, function(error, tableRows, tableInfo) {
+        //     if (error) throw error;
             
-            // search the rows from the table for the matching email
-            for(let index = 0; index < tableRows.length(); index++) {
-                if (tableRows[index].email == email) {
-                    retrievedPassword = tableRows[index].password;
-                }
-            }
-        });
+        //     // search the rows from the table for the matching email
+        //     for(let index = 0; index < tableRows.length(); index++) {
+        //         if (tableRows[index].email == email) {
+        //             retrievedPassword = tableRows[index].password;
+        //         }
+        //     }
+        // });
     });
 
     // return the password
@@ -65,7 +73,7 @@ function addToDo(user, toDoReminder, dbConnection) {
     // connect to the database
     dbConnection.connect(function(error) {
         if (error) throw error;
-        console.log("Successfully connected to the database");
+        console.log("Successfully connected to the database for adding a reminder");
 
         // add the reminder to the database
         let sqlCommand = "INSERT INTO todos (email, reminder) VALUES ('" + user + "', '" + toDoReminder + "')";
@@ -76,8 +84,24 @@ function addToDo(user, toDoReminder, dbConnection) {
     });
 }
 
-function retrieveToDoReminders() {
-    // retrieve all of the reminders from the database for displaying
+function retrieveToDoReminders(user, dbConnection) {
+    let userReminders = [];
+    // connect to the database
+    dbConnection.connect(function(error) {
+        if (error) throw error;
+        console.log("Successfully connected to the database for retrieving the reminders");
+
+        // get the user-specific reminders from the database
+        let sqlCommand = "SELECT reminder FROM todos WHERE email = " + user;
+        dbConnection.query(sqlCommand, function(error, result, tableInfo) {
+            if (error) throw error;
+            userReminders = result;
+            console.log("Successfully retrieved the user's reminders");
+        }); 
+    });
+
+    // return the array containing the reminders stored in the database
+    return userReminders;
 }
 
 module.exports = {initialSetup};

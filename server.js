@@ -111,6 +111,11 @@ toDo.post("/addPost", function(request, response) {
     addToDo(user, reminder, dbConnection);
 })
 
+toDo.post("/showPosts", function(request, response) {
+    // direct user to a page where they can view previous to-dos
+    response.sendFile(__dirname + "/public/view_todo_page.html");
+})
+
 // listen on localhost: 3000
 toDo.listen(3000);
 

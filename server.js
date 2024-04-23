@@ -42,7 +42,7 @@ dbConnection.connect(function(error) {
     dbConnection.query("SHOW DATABASES LIKE 'toDoDb'", function(error, result) {
         if (error) {
             throw error;
-        } else if (result.isEmpty()) { // if no such database exists
+        } else if (result === "") { // if no such database exists
             initialSetup(dbConnection); // create our database and tables to keep track of our users
         }
         else {

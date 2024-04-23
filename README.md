@@ -4,8 +4,9 @@ Follow these steps:
 1. install Node.js
 2. install MySQL Workbench
 3. Setup MySQL Workbench
-4. Run server.js from the terminal
-5. Navigate to localhost:3000 in browser of choice
+4. Edit server.js to include root as the username and your root password as the password (both have been left blank for security purposes)
+5. Run server.js from the terminal
+6. Navigate to localhost:3000 in browser of choice
 
 # Installing Node.js
 To install Node.js in Linux follow these steps:

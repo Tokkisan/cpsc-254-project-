@@ -29,8 +29,8 @@ let user = "";
 // create the connection to the database
 let dbConnection = mySQL.createConnection({
     host: "localhost",
-    user: "dbadmin",
-    password: "temp"
+    user: " ",
+    password: " "
 });
 
 // connect to the MySQL database and set up the initial database and login table
@@ -42,7 +42,7 @@ dbConnection.connect(function(error) {
     dbConnection.query("SHOW DATABASES LIKE 'toDoDb'", function(error, result) {
         if (error) {
             throw error;
-        } else if (result.is_empty()) { // if no such database exists
+        } else if (result.isEmpty()) { // if no such database exists
             initialSetup(dbConnection); // create our database and tables to keep track of our users
         }
         else {

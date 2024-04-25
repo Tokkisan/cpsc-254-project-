@@ -1,9 +1,5 @@
 // import the functions from database_functions to handle the database
-const {addAccount} = require('./database_functions.js');
-const {retrieveAccount} = require('./database_functions.js');
-const {addToDo} = require('./database_functions.js');
-const {retrieveToDoReminders} = require('./database_functions.js');
-const {initialSetup} = require('./database_functions.js')
+const databaseFunctions = require('./database_functions.js');
 // This is the main server that the user will connect to and will redirect to the different files
 // use Node.js to run the database
 
@@ -51,6 +47,12 @@ dbConnection.connect(function(error) {
     });
 });
 
+// close the connection
+dbConnection.end(function(error) {
+    if (error) throw error;
+    console.log("Successfully closed initial database connection");
+});
+
 // direct to the sign-in page when accessing localhost
 toDo.get("/", function(request, response) {
     // direct to the sign-in page
@@ -67,7 +69,7 @@ toDo.post("/sign_in", function(request, response) {
 
     // search the database for the email and
     // pull the password from the database
-    let retrievedPswd = retrieveAccount(email, dbConnection);
+    let retrievedPswd = databaseFunctions.retrieveAccount(email, dbConnection);
 
     // make sure that the pulled and given passwords match
     if (pswd === retrievedPswd) {
@@ -93,7 +95,7 @@ toDo.post("/sign_up", function(request, response) {
     // make sure that the two passwords match
     if (pswd === pswdV) {
         // store email and password in database
-        addAccount(email, pswd, dbConnection);
+        databaseFunctions.addAccount(email, pswd, dbConnection);
         // go to the main page
         response.sendFile(__dirname + "/public/main_todo_page.html");
     }
@@ -108,7 +110,7 @@ toDo.post("/addPost", function(request, response) {
     let reminder = request.body.todo_input;
 
     // put the string in the database
-    addToDo(user, reminder, dbConnection);
+    databaseFunctions.addToDo(user, reminder, dbConnection);
 })
 
 toDo.post("/showPosts", function(request, response) {

@@ -18,6 +18,12 @@ function initialSetup(dbConnection) {
         if (error) throw error;
         console.log("Successfully created reminders table");
     });
+
+    // close the connection
+    dbConnection.end(function(error) {
+        if (error) throw error;
+        console.log("Successfully closed database connection for initial setup");
+    });
 }
 
 function addAccount(email, password, dbConnection) {
@@ -32,6 +38,12 @@ function addAccount(email, password, dbConnection) {
             if (error) throw error;
             console.log("Added new user to the accounts table")
         });
+    });
+
+    // close the connection
+    dbConnection.end(function(error) {
+        if (error) throw error;
+        console.log("Successfully closed database connection for adding an account");
     });
 }
 
@@ -65,6 +77,12 @@ function retrieveAccount(email, dbConnection) {
         // });
     });
 
+    // close the connection
+    dbConnection.end(function(error) {
+        if (error) throw error;
+        console.log("Successfully closed database connection for retieving account");
+    });
+
     // return the password
     return retrievedPassword;
 }
@@ -81,6 +99,12 @@ function addToDo(user, toDoReminder, dbConnection) {
             if (error) throw error;
             console.log("Added reminder to the database");
         });
+    });
+
+    // close the connection
+    dbConnection.end(function(error) {
+        if (error) throw error;
+        console.log("Successfully closed database connection for adding a to-do");
     });
 }
 
@@ -100,12 +124,14 @@ function retrieveToDoReminders(user, dbConnection) {
         }); 
     });
 
+    // close the connection
+    dbConnection.end(function(error) {
+        if (error) throw error;
+        console.log("Successfully closed database connection for retrieving to-do(s)");
+    });
+
     // return the array containing the reminders stored in the database
     return userReminders;
 }
 
-module.exports = {initialSetup};
-module.exports = {addAccount};
-module.exports = {retrieveAccount};
-module.exports = {addToDo};
-module.exports = {retrieveToDoReminders};
+module.exports = {initialSetup, addAccount, retrieveAccount, addToDo, retrieveToDoReminders};

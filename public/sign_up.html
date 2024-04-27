@@ -4,36 +4,29 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daily To-Do Reminder Sign-Up</title>
-  <link rel="stylesheet" href="/stylesheet.css">
+  <link rel="stylesheet" href="./stylesheet.css">
 </head>
 
-<body background-color="#d58dff">
-  <h1 class="center">Sign-Up</h1>
-  <form action="/sign_up" method="post" class = "center">
-    <div class="test">
-      <div class="inline">
-        <a><label for="email">Email</label></a>
-        <a><input type="email" name="email" id="email" placeholder="Enter your email" /></a>
+<body>
+  <div class="container">
+    <h1 class="center">Sign-Up</h1>
+    <form action="/sign_up" method="post" class="center">
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="Enter your email" />
 
-        <br>
+        <label for="pswd">Password</label>
+        <input type="password" id="pswd" name="pswd" placeholder="Enter your password"/>
+
+        <label for="pswdVerification">Re-enter Your Password</label>
+        <input type="password" id="pswdVerification" name="pswdVerification" />
         
-        <a><label for="pswd">Password</label></a>
-        <a><input type="password" id="pswd" name="pswd" placeholder="Enter your password"/></a>
-        
-        <br>
-        
-        <a><label for="pswdVerification">Re-enter Your Password</label></a>
-        <a><input type="password" id="pswdVerification" name="pswdVerification" /></a>
-        <br>
         <input type="submit" value="Sign-Up" />
-        <br>
-        <br>
+        
         <a href="/index.html">Go back to Sign-In</a>
-
       </div>
-    </div>
-
-  </form>
+    </form>
+  </div>
 </body>
 
 </html>

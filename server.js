@@ -35,22 +35,31 @@ dbConnection.connect(function(error) {
     console.log("Successfully connected to the database");
     
     // see if the database and tables already exist
-    dbConnection.query("SHOW DATABASES LIKE 'toDoDb'", function(error, result) {
+    dbConnection.query("SHOW DATABASES", function(error, result) {
         if (error) {
             throw error;
-        } else if (result === "") { // if no such database exists
-            initialSetup(dbConnection); // create our database and tables to keep track of our users
+        } 
+        
+        let found = false;
+
+        for (let i = 0; i < result.length; i++) {
+            if (result[i].Database == "toDoDb") {
+                found = true;
+            }
+        }
+
+        if (found == true) {
+            console.log("Database exists");
+        }
+        else if (found == false) { // if no such database exists
+            console.log("Database does not exist");
+            console.log("Setting up database and tables");
+            databaseFunctions.initialSetup(dbConnection); // create our database and tables to keep track of our users
         }
         else {
-            console.log("The database exists");
+            console.log("Error reading from MySQL");
         }
     });
-});
-
-// close the connection
-dbConnection.end(function(error) {
-    if (error) throw error;
-    console.log("Successfully closed initial database connection");
 });
 
 // direct to the sign-in page when accessing localhost
@@ -78,7 +87,7 @@ toDo.post("/sign_in", function(request, response) {
     }
     else {
         // if passwords don't match...
-        alert("Please enter the correct username and password");
+        console.log("Passwords don't match");
     }
 });
 
@@ -100,7 +109,7 @@ toDo.post("/sign_up", function(request, response) {
         response.sendFile(__dirname + "/public/main_todo_page.html");
     }
     else {
-        alert("Please ensure that both passwords match");
+        console.log("Passwords don't match");
     }
     // note: email input type automatically validates according to https://www.w3schools.com/tags/att_input_type_email.asp
 });

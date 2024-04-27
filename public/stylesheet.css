@@ -53,3 +53,51 @@ body {
   text-decoration: none;
 }
 
+
+.body-main {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d58dff;
+  text-align: center;
+}
+.todo-container {
+  width: 400px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #fff;
+}
+.todo-container h1 {
+  margin-top: 0;
+}
+.todo-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 35px;
+  width: 100%;
+}
+#todo-input {
+  width: 300px;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.submit-btn {
+  padding: 5px 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+.submit-btn:hover {
+  background-color: #3d4c85;
+}
+

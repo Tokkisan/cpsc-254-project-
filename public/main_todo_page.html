@@ -3,57 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./stylesheet.css">
     <title>Create ToDo</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #d58dff;
-        }
-        .todo-container {
-            width: 400px;
-            text-align: center;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            background-color: #fff;
-        }
-        .todo-container h1 {
-            margin-top: 0;
-        }
-        .todo-form {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 35px;
-            width: 100%;
-        }
-        #todo-input {
-            width: calc(100% - 90px);
-            width: 300px;
-            margin-bottom: 10px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        .submit-btn {
-            padding: 5px 12px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.5s;
-        }
-        .submit-btn:hover {
-            background-color: #3d4c85;
-        }
-    </style>
-</head>
-<body>
+    </head>
+<body class = "body-main">
     <div class="todo-container">
         <h1>TO-DO</h1>
         <form class="todo-form" id="todo-form" action="/addPost" method="post">
@@ -61,7 +14,7 @@
             <button type="submit" class="submit-btn">Submit</button>
         </form>
         <form action="/showPosts" method="post" class="center">
-            <button type="submit" class="submit-btn">View To-Dos</button>
+            <button type="submit" class="submit-btn" href = "./view_todo_page.html" target = "_blank">View To-Dos</button>
         </form> 
         <div id="todo-list"></div>
     </div>

@@ -1,5 +1,9 @@
 // import the functions from database_functions to handle the database
 const databaseFunctions = require('./database_functions.js');
+
+// import the functions from server_functions to clean up server.js
+const server_functions = require('./server_functions.js');
+
 // This is the main server that the user will connect to and will redirect to the different files
 // use Node.js to run the database
 
@@ -25,8 +29,8 @@ let user = "";
 // create the connection to the database
 let dbConnection = mySQL.createConnection({
     host: "localhost",
-    user: " ",
-    password: " "
+    user: "root",
+    password: "VMb0x23!"
 });
 
 // connect to the MySQL database and set up the initial database and login table
@@ -70,25 +74,7 @@ toDo.get("/", function(request, response) {
 
 // handle the data returned from the sign-in page
 toDo.post("/sign_in", function(request, response) {
-    // get the email from the sign-in page
-    let email = request.body.email;
-    user = request.body.email;
-    // get the password from the sign-in page
-    let pswd = request.body.pswd;
-
-    // search the database for the email and
-    // pull the password from the database
-    let retrievedPswd = databaseFunctions.retrieveAccount(email, dbConnection);
-
-    // make sure that the pulled and given passwords match
-    if (pswd === retrievedPswd) {
-        // if match...
-        response.sendFile(__dirname + "/public/main_todo_page.html");
-    }
-    else {
-        // if passwords don't match...
-        console.log("Passwords don't match");
-    }
+    server_functions.authenticate(request, response, databaseFunctions, dbConnection);
 });
 
 // handle the data returned from the sign-up page

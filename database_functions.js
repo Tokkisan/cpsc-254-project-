@@ -22,7 +22,7 @@ function initialSetup(dbConnection) {
 
 function addAccount(email, password, dbConnection) {
     // add the email and password to the accounts table
-    let sqlCommand = "INSERT INTO toDoDb.accounts (email, password) VALUES ('" + email + ", '" + password + "');";
+    let sqlCommand = "INSERT INTO toDoDb.accounts (email, password) VALUES ('" + email + "', '" + password + "');";
     dbConnection.query(sqlCommand, function(error, result) {
         if (error) throw error;
         console.log("Added new user to the accounts table")

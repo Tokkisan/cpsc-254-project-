@@ -39,7 +39,7 @@ dbConnection.connect(function(error) {
     console.log("Successfully connected to the database");
     
     // see if the database and tables already exist
-    dbConnection.query("SHOW DATABASES", function(error, result) {
+    dbConnection.query("SHOW DATABASES;", function(error, result) {
         if (error) {
             throw error;
         } 

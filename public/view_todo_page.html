@@ -12,7 +12,16 @@
         
         <div id="old-todo-list"></div>
     </div>
-    <script></script>
+    <script src="./database_functions.js">
+    	let todos = await retrieveToDoReminders(user, dbConnection);
+    	
+    	console.log("in HTML script");
+    	
+    	for (let index = 0; index < todos.length; index++) {
+    		console.log("todos[" + index + "] = " + todos[index]);
+    		document.write(todos[index]);
+    	}
+    </script>
     
 </body>
 </html>

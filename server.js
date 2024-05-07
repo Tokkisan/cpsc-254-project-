@@ -29,8 +29,8 @@ let user = "";
 // create the connection to the database
 let dbConnection = mySQL.createConnection({
     host: "localhost",
-    user: "",
-    password: ""
+    user: "root",
+    password: "Quinn!123"
 });
 
 // connect to the MySQL database and set up the initial database and login table

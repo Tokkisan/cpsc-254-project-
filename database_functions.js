@@ -67,13 +67,21 @@ function addToDo(user, toDoReminder, dbConnection) {
     });
 }
 
+
 function retrieveToDoReminders(user, dbConnection) {
+
+    const {authenticate, createAccount, getUser} = require('./server_functions.js');
+
+    user = getUser();
+
+    console.log("this is user from db", user);
     let userReminders = [];
     // get the user-specific reminders from the database
-    let sqlCommand = "SELECT reminder FROM toDoDb.todos WHERE email = '" + user + "';";
+    let sqlCommand = "SELECT reminder From toDoDb.todos WHERE email = '" + user + "';";
     dbConnection.query(sqlCommand, function(error, result, tableInfo) {
         if (error) throw error;
             userReminders = result;
+            console.log(result);
             console.log("Successfully retrieved the user's reminders");
     }); 
 

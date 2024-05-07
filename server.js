@@ -29,8 +29,8 @@ let user = "";
 // create the connection to the database
 let dbConnection = mySQL.createConnection({
     host: "localhost",
-    user: " ",
-    password: " "
+    user: "",
+    password: ""
 });
 
 // connect to the MySQL database and set up the initial database and login table
@@ -66,6 +66,8 @@ dbConnection.connect(function(error) {
     });
 });
 
+
+
 // direct to the sign-in page when accessing localhost
 toDo.get("/", function(request, response) {
     // direct to the sign-in page
@@ -94,8 +96,12 @@ toDo.post("/addPost", function(request, response) {
     databaseFunctions.addToDo(user, reminder, dbConnection);
 })
 
-toDo.post("/showPosts", function(request, response) {
+toDo.post("/showPosts", async function(request, response) {
     // direct user to a page where they can view previous to-dos
+    console.log("button pressed for getting todos");
+    let todos = await databaseFunctions.retrieveToDoReminders(user, dbConnection);
+    console.log("To-do reminders:", todos);
+
     response.sendFile(__dirname + "/public/view_todo_page.html");
 })
 

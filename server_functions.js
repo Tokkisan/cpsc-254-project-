@@ -1,9 +1,16 @@
+
+let currentUser = '';
+
+
 async function authenticate(request, response, databaseFunctions, dbConnection) {
     // get the email from the sign-in page
     let email = request.body.email;
     user = request.body.email;
     // get the password from the sign-in page
     let pswd = request.body.pswd;
+
+    currentUser = request.body.email;
+    console.log("this is user from server_functions", user)
 
     // search the database for the email and
     // pull the password from the database
@@ -19,6 +26,8 @@ async function authenticate(request, response, databaseFunctions, dbConnection) 
         console.log("Passwords don't match");
     }
 }
+
+
 
 function createAccount(request, response, databaseFunctions, dbConnection) {
     // get the email from the sign-up page
@@ -42,4 +51,8 @@ function createAccount(request, response, databaseFunctions, dbConnection) {
     // note: email input type automatically validates according to https://www.w3schools.com/tags/att_input_type_email.asp
 }
 
-module.exports = {authenticate, createAccount};
+function getUser() {
+    return currentUser;
+}
+
+module.exports = {authenticate, createAccount, getUser};

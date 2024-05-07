@@ -70,7 +70,7 @@ function addToDo(user, toDoReminder, dbConnection) {
     });
 }
 
-
+let userReminders = [];
 function retrieveToDoReminders(user, dbConnection) {
 
     const {getUser} = require('./server_functions.js');
@@ -78,7 +78,7 @@ function retrieveToDoReminders(user, dbConnection) {
     user = getUser();
 
     console.log("this is user from db", user);
-    let userReminders = [];
+
     // get the user-specific reminders from the database
     let sqlCommand = "SELECT reminder From toDoDb.todos WHERE email = '" + user + "';";
     dbConnection.query(sqlCommand, function(error, result, tableInfo) {
@@ -86,7 +86,9 @@ function retrieveToDoReminders(user, dbConnection) {
             console.log(result);
 
             for (let i =0; i< result.length; i++){ 
-                let userReminders = result[i].reminder;
+                //let userReminders = result[i].reminder;
+                console.log(result[i].reminder)
+                userReminders.push(result[i].reminder);
         
             console.log(userReminders);
             }    console.log("Successfully retrieved the user's reminders");
@@ -97,4 +99,9 @@ function retrieveToDoReminders(user, dbConnection) {
     return userReminders;
 }
 
-module.exports = {initialSetup, addAccount, retrieveAccount, addToDo, retrieveToDoReminders};
+function getReminder() {
+    console.log(userReminders);
+    return userReminders;
+}
+
+module.exports = {initialSetup, addAccount, retrieveAccount, addToDo, retrieveToDoReminders, getReminder};

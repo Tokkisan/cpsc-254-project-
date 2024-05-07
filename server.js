@@ -74,6 +74,10 @@ toDo.get("/", function(request, response) {
     response.sendFile(__dirname + "/index.html");
 });
 
+toDo.get('/database_functions.js', function(request, response) {
+    response.setHeader('Content-Type', 'application/javascript');
+});
+
 // handle the data returned from the sign-in page
 toDo.post("/sign_in", function(request, response) {
     serverFunctions.authenticate(request, response, databaseFunctions, dbConnection);
@@ -104,6 +108,14 @@ toDo.post("/showPosts", async function(request, response) {
 
     response.sendFile(__dirname + "/public/view_todo_page.html");
 })
+
+toDo.get('/getReminder', async function(request, response) {
+    let user_reminders = await databaseFunctions.getReminder();
+    console.log("getreminder: ", user_reminders);
+    response.send(user_reminders);
+})
+
+
 
 // listen on localhost: 3000
 toDo.listen(3000);

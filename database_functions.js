@@ -70,47 +70,38 @@ function addToDo(user, toDoReminder, dbConnection) {
     });
 }
 
-function retrieveFromDb(dbConnection, sql) {
-    return new Promise((resolve, reject) => {
-    	dbConnection.query(sql, function(error, result, tableInfo) {
-    		if (error) throw error;
-    		let userReminders = [];
-    		
-    		for (let i = 0; i < result.length; i++) {
-    			userReminders[i] = result[i].reminder;
-    		}
-    		
-    		resolve(userReminders);
-    	});
-    });
-}
-
-async function retrieveToDoReminders(user, dbConnection) {
+let userReminders = [];
+function retrieveToDoReminders(user, dbConnection) {
 
     const {getUser} = require('./server_functions.js');
 
     user = getUser();
 
     console.log("this is user from db", user);
-    //let userReminders = [];
+
     // get the user-specific reminders from the database
     let sqlCommand = "SELECT reminder From toDoDb.todos WHERE email = '" + user + "';";
-    //dbConnection.query(sqlCommand, function(error, result, tableInfo) {
-    //    if (error) throw error;
-    //        console.log(result);
-    
-    //        for (let i =0; i< result.length; i++){ 
-    //            userReminders[i] = result[i].reminder;
-        
-            //console.log(userReminders);
-    //        }    console.log("Successfully retrieved the user's reminders");
-            
-	//}); 
+    dbConnection.query(sqlCommand, function(error, result, tableInfo) {
+        if (error) throw error;
+            console.log(result);
 
-    let userReminders = await retrieveFromDb(dbConnection, sqlCommand);
-    console.log("Here are the reminders: " + userReminders);
+            for (let i =0; i< result.length; i++){ 
+                //let userReminders = result[i].reminder;
+                console.log(result[i].reminder)
+                userReminders.push(result[i].reminder);
+        
+            console.log(userReminders);
+            }    console.log("Successfully retrieved the user's reminders");
+            
+    }); 
+
     // return the array containing the reminders stored in the database
     return userReminders;
 }
 
-module.exports = {initialSetup, addAccount, retrieveAccount, addToDo, retrieveToDoReminders};
+function getReminder() {
+    console.log(userReminders);
+    return userReminders;
+}
+
+module.exports = {initialSetup, addAccount, retrieveAccount, addToDo, retrieveToDoReminders, getReminder};

@@ -4,24 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo List</title>
-    <link rel="stylesheet" href="./stylesheet.css">
+    <link rel="stylesheet" href="./stylesheet.css">   
+   
 </head>
 <body>
     <div>
         <h1 class="center">List of TO-DOs</h1>
-        
+
+        <script>
+            fetch('/getReminder')
+                .then(reponse => reponse.json())
+                .then(reminders => {
+                    
+                    const reminderList = document.getElementById("old-todo-list");
+                    reminders.forEach(reminder => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = reminder;
+                        reminderList.appendChild(listItem);
+                    });
+                })
+        </script>
+
+
+
+
         <div id="old-todo-list"></div>
     </div>
-    <script src="./database_functions.js">
-    	let todos = await retrieveToDoReminders(user, dbConnection);
-    	
-    	console.log("in HTML script");
-    	
-    	for (let index = 0; index < todos.length; index++) {
-    		console.log("todos[" + index + "] = " + todos[index]);
-    		document.write(todos[index]);
-    	}
-    </script>
+    <script></script>
     
 </body>
 </html>

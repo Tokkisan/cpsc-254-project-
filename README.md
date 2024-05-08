@@ -16,8 +16,24 @@ To install Node.js in Linux follow these steps:
 4. Install the mysql module by using "npm install mysql" (without quotation marks)
 
 # Installing MySQL Workbench
+MySQL Installation (the steps for which are from this link: https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-linux-quick.html):
+1. Download the MySQL APT repository from https://dev.mysql.com/downloads/repo/apt/
+2. sudo dpkg -i /home/(your username)/Downloads mysql-apt-config_0.8.29-1_all.deb. This will bring up a prompt, hit OK.
+3. sudo apt-get update
+4. sudo apt-get install mysql-shell
 
 # Setting up MySQL Workbench
+Using MySQL (https://www.techtarget.com/searchdatacenter/tip/How-to-set-up-a-MySQL-database-in-Linux):
+1. sudo apt-get install mysql-server -y
+2. sudo systemctl enable --now mysql (this starts and enables the server)
+3. sudo mysql_secure_installation. Several options will pop up, we answered them with the following parameters:
+   Yes, no, yes, no, no, yes for all the options that show up.
+4. sudo mysql -u root -p
+5. CREATE DATABASE toDoDb;
+   show databases; (These steps are for creating the table and seeing if it is there.)
+6. CREATE USER 'dbadmin'@'localhost' (hit enter)
+   -> IDENTIFIED BY 'PASSWORD'; (This will create a user dbadmin.)
+7. quit (To exit mysql terminal)
 
 # Running the server
 To start the server follow these steps:

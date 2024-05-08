@@ -11,15 +11,27 @@
     <div>
         <h1 class="center">List of TO-DOs</h1>
 
+
         <script>
+        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
+        //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#uploading_a_file
+        //https://blog.logrocket.com/fetch-api-node-js/
+
+            //fetch the reminders function from server.js
             fetch('/getReminder')
+                //get the reponse.json which is stringify
                 .then(reponse => reponse.json())
+                //use the reponse and then start using it as a parameter remidners
                 .then(reminders => {
-                    
+                    //set reminderList to <div id ="old-todo-list"> in the html file
                     const reminderList = document.getElementById("old-todo-list");
+                    //iterate over the array of strings reminders
                     reminders.forEach(reminder => {
+                        //this should create a list item with bullet points (but it doesnt)
                         const listItem = document.createElement('li');
+                        //set each reminder to 1 li element
                         listItem.textContent = reminder;
+                        //append it to the document at <div id = "old-todo-list">
                         reminderList.appendChild(listItem);
                     });
                 })

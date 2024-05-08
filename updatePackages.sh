@@ -12,6 +12,8 @@ sudo apt-get update
 date >> updatePackagesLog.txt
 #NOTE fix the directory for this
 apt list --upgradable >> /home/jt/updatePackagesLog.txt
+echo "------------------------------------------------------------" >> updatePackagesLog.txt
+
 
 # Upgrade installed packages and removes packages that can no longer be downloaded
 sudo apt-get upgrade

@@ -29,8 +29,8 @@ let user = "";
 // create the connection to the database
 let dbConnection = mySQL.createConnection({
     host: "localhost",
-    user: " ",
-    password: " "
+    user: "",
+    password: ""
 });
 
 // connect to the MySQL database and set up the initial database and login table
@@ -74,6 +74,10 @@ toDo.get("/", function(request, response) {
     response.sendFile(__dirname + "/index.html");
 });
 
+toDo.get('./database_functions.js', function(request, response) {
+    response.setHeader('Content-Type', 'application/javascript');
+}, express.static(__dirname + '/database_fucntions.js'));
+
 // handle the data returned from the sign-in page
 toDo.post("/sign_in", function(request, response) {
     serverFunctions.authenticate(request, response, databaseFunctions, dbConnection);
@@ -104,6 +108,15 @@ toDo.post("/showPosts", async function(request, response) {
 
     response.sendFile(__dirname + "/public/view_todo_page.html");
 })
+
+toDo.get('/getReminder', async function(request, response) {
+    let user_reminders = await databaseFunctions.getReminder();
+    console.log("getreminder: ", user_reminders);
+    response.send(JSON.stringify(user_reminders));
+   
+})
+
+
 
 // listen on localhost: 3000
 toDo.listen(3000);
